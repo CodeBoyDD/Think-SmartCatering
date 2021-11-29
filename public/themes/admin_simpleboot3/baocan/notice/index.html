@@ -1,0 +1,77 @@
+<include file="public@header" />
+<style>
+    table{
+        table-layout: fixed;
+    }
+
+    td{
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+</style>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="{:url('index')}">公告管理</a></li>
+        <li><a href="{:url('noticeAdd')}">发布公告</a></li>
+    </ul>
+
+    <form class="well form-inline margin-top-20" method="post" action="{:url('noticeSearch')}">
+        公告编号:
+        <input type="text" class="form-control" name="notice_id" style="width: 200px;" placeholder="请输入公告编号">
+        公告标题:
+        <input type="text" class="form-control" name="notice_title" style="width: 200px;"  placeholder="请输入公告标题">
+        发布日期:
+        <input type="text" class="form-control js-bootstrap-date" name="notice_date" value="{$time}" autocomplete="off">
+        <input type="submit" class="btn btn-primary" value="搜索" />
+        <a class="btn btn-danger" href="{:url('index')}">清空</a>
+    </form>
+
+    <form action="{:url('')}" method="post" class="margin-top-20">
+        <table class="table table-hover table-bordered" style="table-layout: fixed;">
+            <thead>
+            <tr>
+                <th align="left" width="120px">公告编号</th>
+                <th align="left" width="auto">公告标题</th>
+                <th align="left" width="auto">发布时间</th>
+                <th align="left" width="auto">创建时间</th>
+                <th align="left" width="65px">{:lang('STATUS')}</th>
+                <th width="135">{:lang('ACTIONS')}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <foreach name="list" item="vo">
+                <tr>
+                    <td>{$vo.notice_id}</td>
+                    <td>{$vo.notice_title}</td>
+                    <td>{$vo.notice_date}</td>
+                    <td>{$vo.notice_create_date}</td>
+                    <td>
+                        <if condition="$vo['notice_status'] eq 1">
+                            <a class="btn btn-xs btn-success js-ajax-dialog-btn"
+                               href="{:url('disable',array('notice_id'=>$vo['notice_id']))}"
+                               data-msg="确定放入草稿箱吗？">已发布</a>
+                            <else />
+                            <a class="btn btn-xs btn-danger js-ajax-dialog-btn"
+                               href="{:url('enable',array('notice_id'=>$vo['notice_id']))}"
+                               data-msg="确定发布公告吗？">草稿箱</a>
+                        </if>
+                    </td>
+                    <td>
+                        <a class="btn btn-xs btn-success" href="{:url('noticeDetail',array('notice_id'=>$vo['notice_id']))}">详情</a>
+                        <a class="btn btn-xs btn-primary" href="{:url('noticeEdit',array('notice_id'=>$vo['notice_id']))}">{:lang('EDIT')}</a>
+                        <a class="btn btn-xs btn-danger js-ajax-delete" href="{:url('noticeDelete',array('notice_id'=>$vo['notice_id']))}">{:lang('DELETE')}</a>
+                    </td>
+                </tr>
+            </foreach>
+            </tbody>
+        </table>
+        <div class="pagination">{$page}</div>
+    </form>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<include file="public@header" />
+</head>
+<body>
+<div class="wrap js-check-wrap">
+
+    <ul class="nav nav-tabs">
+        <li><a href="{:url('index')}">食堂入驻申请</a></li>
+        <li class="active"><a href="{:url('applyDetail')}">申请详情</a></li>
+    </ul>
+
+    <form class="form-horizontal js-ajax-form margin-top-20" action="" method="post">
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h4 class="panel-title">申请详情信息</h4>
+            </div>
+            <div class="panel-body">
+                <table class="table table-hover table-bordered">
+                    <tbody>
+                    <tr>
+                        <td align="left" width="130px">申请编号</td>
+                        <td>{$detail.apply_id}</td>
+                    </tr>
+                    <tr>
+                        <td align="left">申请食堂名称</td>
+                        <td>{$detail.apply_name}</td>
+                    </tr>
+                    <tr>
+                        <td align="left">申请食堂地址</td>
+                        <td>{$detail.apply_address}</td>
+                    </tr>
+                    <tr>
+                        <td align="left">申请入驻时间</td>
+                        <td>{$detail.apply_date}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">{:lang('STATUS')}</label>
+                    <div class="col-md-6 col-sm-10">
+                        <label class="radio-inline">
+                            <php>$active_true_checked=($detail['apply_status']==1)?"checked":"";</php>
+                            <input type="radio" name="apply_status" value="1" {$active_true_checked}> 已通过
+                        </label>
+                        <label class="radio-inline">
+                            <php>$active_checked=($detail['apply_status']==0)?"checked":"";</php>
+                            <input type="radio" name="apply_status" value="0" {$active_checked}> 审核中
+                        </label>
+                        <label class="radio-inline">
+                            <php>$active_false_checked=($detail['apply_status']==-1)?"checked":"";</php>
+                            <input type="radio" name="apply_status" value="-1" {$active_false_checked}> 未通过
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary">提交操作</button>
+                        <a class="btn btn-default" href="{:url('index')}">{:lang('BACK')}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+

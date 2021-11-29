@@ -1,0 +1,56 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+
+    <ul class="nav nav-tabs">
+        <li><a href="{:url('index')}">意见反馈</a></li>
+        <li class="active"><a href="{:url('opinionDetail')}">意见详情</a></li>
+    </ul>
+
+    <form class="form-horizontal js-ajax-form margin-top-20" action="" method="post">
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                意见详情
+            </div>
+
+            <div class="panel-body">
+
+                <h4>{$moreinfo.opinion_title}</h4>
+                <p>{$moreinfo.opinion_content}</p>
+                </br>
+                <p style="float: right">{$moreinfo.opinion_date}</p>
+                </br>
+
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <script type="text/plain" id="content" name="opinion_visit" style="height: 200px">{$moreinfo.opinion_visit}</script>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <button type="submit" class="btn btn-primary">意见回访</button>
+                        <a class="btn btn-default"  href="{:url('index')}">{:lang('BACK')}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+<script src="__STATIC__/js/admin.js"></script>
+
+<script type="text/javascript">
+    //编辑器路径定义
+    var editorURL = GV.WEB_ROOT;
+</script>
+<script type="text/javascript" src="__STATIC__/js/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="__STATIC__/js/ueditor/ueditor.all.min.js"></script>
+<script type="text/javascript">
+    var editor = UE.getEditor('content');
+</script>
+</body>
+</html>

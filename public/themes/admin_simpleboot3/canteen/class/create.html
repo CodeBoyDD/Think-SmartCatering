@@ -1,0 +1,61 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+
+    <ul class="nav nav-tabs">
+        <li><a href="{:url('index')}">班级管理</a></li>
+        <li class="active"><a href="{:url('create')}">创建班级</a></li>
+    </ul>
+
+    <form class="form-horizontal js-ajax-form margin-top-20" action="{:url('create')}" method="post">
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                创建班级信息
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label for="school_id" class="col-sm-2 control-label"><span class="form-required">*</span> 学校编号</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="text" class="form-control" id="school_id" name="school_id">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="class_name" class="col-sm-2 control-label"><span class="form-required">*</span> 班级编号</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="text" class="form-control" id="class_id" name="class_id">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="name" class="col-sm-2 control-label"><span class="form-required">*</span> 班级名称</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="text" class="form-control" id="name" name="name">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="number" class="col-sm-2 control-label"><span class="form-required">*</span> 班级人数</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="text" class="form-control" id="number" name="number">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary">创建班级</button>
+                        <a class="btn btn-default" href="{:url('index')}">{:lang('BACK')}</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </form>
+
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

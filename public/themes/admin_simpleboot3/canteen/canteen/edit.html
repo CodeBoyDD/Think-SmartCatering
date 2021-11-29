@@ -1,0 +1,77 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+
+    <ul class="nav nav-tabs">
+        <li><a href="{:url('index')}">食堂管理</a></li>
+        <li><a href="{:url('create')}">创建食堂</a></li>
+        <li class="active"><a>编辑食堂</a></li>
+    </ul>
+
+    <form class="form-horizontal js-ajax-form margin-top-20" action="" method="post">
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                编辑食堂信息表单
+            </div>
+            <div class="panel-body">
+
+                <div class="form-group">
+                    <label for="school_id" class="col-sm-2 control-label"><span class="form-required">*</span> 学校编号</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="text" class="form-control" id="school_id" name="school_id" value="{$data.school_id}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="can_id" class="col-sm-2 control-label"><span class="form-required">*</span> 食堂编号</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="text" class="form-control" id="can_id" name="can_id" value="{$data.can_id}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="name" class="col-sm-2 control-label"><span class="form-required">*</span> 食堂名称</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="text" class="form-control" id="name" name="name" value="{$data.name}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="address" class="col-sm-2 control-label"><span class="form-required">*</span> 食堂地址</label>
+                    <div class="col-md-6 col-sm-10">
+                        <textarea type="text" class="form-control" id="address" name="address">{$data.address}</textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">{:lang('STATUS')}</label>
+                    <div class="col-md-6 col-sm-10">
+                        <label class="radio-inline">
+                            <php>$active_true_checked=($data['status']==1)?"checked":"";</php>
+                            <input type="radio" name="status" value="1" {$active_true_checked}> {:lang('ENABLED')}
+                        </label>
+                        <label class="radio-inline">
+                            <php>$active_false_checked=($data['status']==0)?"checked":"";</php>
+                            <input type="radio" name="status" value="0" {$active_false_checked}> {:lang('DISABLED')}
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary">{:lang('SAVE')}</button>
+                        <a class="btn btn-default" href="{:url('index')}">{:lang('BACK')}</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </form>
+
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>
