@@ -10,7 +10,7 @@ class ClassModel extends Model
     protected $table =  'yfc_a_class';
 
     /*班级Join用户Join学校*/
-    public function claJoinStuJoinSch()
+    public function claLjoinStuLjoinSch()
     {
         return Db::table('yfc_a_class')
             ->alias('class')
@@ -22,7 +22,7 @@ class ClassModel extends Model
     /*首页显示学校-班级-学生关联信息*/
     public function classList()
     {
-         $data = $this->claJoinStuJoinSch()
+         $data = $this->claLjoinStuLjoinSch()
             ->field('count(customer.class_no) AS bind_number')
             ->group('class.class_no');
         return $data;

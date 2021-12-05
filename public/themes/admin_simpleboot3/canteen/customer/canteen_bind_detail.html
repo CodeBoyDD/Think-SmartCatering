@@ -13,9 +13,8 @@
     <table class="table table-hover table-bordered">
       <thead>
       <tr>
-        <th align="left">学生编号</th>
-        <th align="left">学生学号</th>
-        <th align="left">学生姓名</th>
+        <th align="left">用户编号</th>
+        <th align="left">用户姓名</th>
         <th align="left">班级名称</th>
         <th align="left">绑定食堂</th>
         <th width="60">{:lang('STATUS')}</th>
@@ -26,25 +25,24 @@
       <tbody>
       <foreach name="data" item="vo">
         <tr>
-          <td>{$vo.student_id}</td>
-          <td>{$vo.student_number}</td>
-          <td>{$vo.student_name}</td>
-          <td>{$vo.class_name}</td>
-          <td>{$vo.canteen_name}</td>
+          <td>{$vo.cus_no}</td>
+          <td>{$vo.customer}</td>
+          <td>{$vo.class}</td>
+          <td>{$vo.canteen}</td>
           <td>
-            <if condition="$vo['student_status'] eq 1">
+            <if condition="$vo['cus_status'] eq 1">
               <a class="btn btn-xs btn-success js-ajax-dialog-btn"
-                 href="{:url('disable',array('student_id'=>$vo['student_id']))}"
+                 href="{:url('disable',array('id'=>$vo['cus_id']))}"
                  data-msg="确定禁用吗？">启用</a>
               <else />
               <a class="btn btn-xs btn-danger js-ajax-dialog-btn"
-                 href="{:url('enable',array('student_id'=>$vo['student_id']))}"
+                 href="{:url('enable',array('id'=>$vo['cus_id']))}"
                  data-msg="确定启用吗？">禁用</a>
             </if>
           </td>
           <td>
-            <a class="btn btn-xs btn-primary" href="{:url('studentEdit',array('student_id'=>$vo['student_id']))}">{:lang('EDIT')}</a>
-            <a class="btn btn-xs btn-danger js-ajax-delete" href="{:url('studentDelete',array('student_id'=>$vo['student_id']))}">{:lang('DELETE')}</a>
+            <a class="btn btn-xs btn-primary" href="{:url('studentEdit',array('id'=>$vo['cus_id']))}">{:lang('EDIT')}</a>
+            <a class="btn btn-xs btn-danger js-ajax-delete" href="{:url('studentDelete',array('id'=>$vo['cus_id']))}">{:lang('DELETE')}</a>
           </td>
         </tr>
       </foreach>

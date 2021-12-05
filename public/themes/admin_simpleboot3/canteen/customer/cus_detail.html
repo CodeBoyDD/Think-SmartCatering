@@ -1,0 +1,151 @@
+<include file="public@header"/>
+<style>
+    table{
+        table-layout: fixed;
+    }
+
+    td{
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+</style>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li><a href="{:url('index')}">用户管理</a></li>
+        <li><a href="{:url('classBind')}">各班级绑定统计</a></li>
+        <li><a href="{:url('canteenBind')}">各食堂绑定统计</a></li>
+        <li class="active"><a href="{:url('cusEdit')}">用户详情</a></li>
+    </ul>
+
+    <form class="form-horizontal js-ajax-form margin-top-20" action="" method="post">
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                用户详情信息
+            </div>
+            <div class="panel-body">
+                <table class="table table-hover table-bordered">
+                    <tbody>
+
+                    <tr>
+                        <td align="left" width="130px">用户编号</td>
+                        <td>{$data.cus_no}</td>
+                    </tr>
+                    <tr>
+                        <td align="left">用户名称</td>
+                        <td>{$data.customer}</td>
+                    </tr>
+
+                    <tr>
+                        <td align="left">用户类型</td>
+                        <td>
+                            <if condition="$data['cus_type'] eq 0">
+                                学生
+                            <else />
+                                教师
+                            </if>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td align="left">用户状态</td>
+                        <td>
+                            <if condition="$data['cus_status'] eq 0">
+                                <font style="color: red">已禁用</font>
+                                <else />
+                                已启用
+                            </if>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td align="left">报餐状态</td>
+                        <td>
+                            <if condition="$data['meal_status'] eq 0">
+                                <font style="color: red">未报餐</font>
+                                <else />
+                                已报餐
+                            </if>
+                        </td>
+                    </tr>
+
+                    <if condition="$data['class_no'] eq null">
+                        <tr>
+                            <td align="left">班级编号</td>
+                            <td><font style="color: red">未绑定</font></td>
+                        </tr>
+                        <tr>
+                            <td align="left">班级名称</td>
+                            <td><font style="color: red">未绑定</font></td>
+                        </tr>
+                        <else />
+                        <tr>
+                            <td align="left">班级编号</td>
+                            <td>{$data.class_no}</td>
+                        </tr>
+                        <tr>
+                            <td align="left">班级名称</td>
+                            <td>{$data.class}</td>
+                        </tr>
+                    </if>
+
+                    <if condition="$data['school_no'] eq null">
+                        <tr>
+                            <td align="left">学校编号</td>
+                            <td><font style="color: red">未绑定</font></td>
+                        </tr>
+                        <tr>
+                            <td align="left">学校名称</td>
+                            <td><font style="color: red">未绑定</font></td>
+                        </tr>
+                        <else />
+                        <tr>
+                            <td align="left">学校编号</td>
+                            <td>{$data.school_no}</td>
+                        </tr>
+                        <tr>
+                            <td align="left">学校名称</td>
+                            <td>{$data.school_name}</td>
+                        </tr>
+                    </if>
+
+
+
+                    <if condition="$data['can_no'] eq null">
+                        <tr>
+                            <td align="left">食堂编号</td>
+                            <td><font style="color: red">未绑定</font></td>
+                        </tr>
+                        <tr>
+                            <td align="left">食堂名称</td>
+                            <td><font style="color: red">未绑定</font></td>
+                        </tr>
+                        <else />
+                        <tr>
+                            <td align="left">食堂编号</td>
+                            <td>{$data.can_no}</td>
+                        </tr>
+                        <tr>
+                            <td align="left">食堂名称</td>
+                            <td>{$data.canteen}</td>
+                        </tr>
+                    </if>
+                    </tbody>
+                </table>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <a class="btn btn-default" href="{:url('index')}">{:lang('BACK')}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

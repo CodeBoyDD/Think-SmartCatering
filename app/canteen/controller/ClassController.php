@@ -84,11 +84,10 @@ class ClassController extends AdminBaseController
             /*验证器*/
             $validate = $this->validate($data,'Class.edit');
             if(!$validate == true) {
-                $this->error($validate);
+                return $this->error($validate);
             } else {
-
                 $edit->update($data);
-                $this->success('编辑班级信息成功', 'index');
+                return $this->success('编辑班级信息成功', 'index');
             }
         }
         return $this->fetch();
