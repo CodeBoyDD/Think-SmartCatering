@@ -3,16 +3,17 @@ namespace app\canteen\controller;
 
 use \think\Request;
 use cmf\controller\AdminBaseController;
-use app\canteen\model\StudentModel;
+use app\canteen\model\CustomerModel;
 
 class CustomerController extends AdminBaseController
 {
     //首页
     public function index()
     {
-        $studentinfo = new StudentModel();
+        $customer= new CustomerModel();
 
-        $data = $studentinfo->studentList();
+        $data = $customer->customerList()->paginate(10);
+        dump($data);
         $page = $data->render();
 
         //dump($data);
@@ -26,7 +27,7 @@ class CustomerController extends AdminBaseController
     //启用用户
     public function enable()
     {
-        $status = StudentModel::where('student_id', input('student_id'))->find();
+        $status = CustomerModel::where('student_id', input('student_id'))->find();
 
         $status->student_status = 1;
         $status->save();
@@ -38,7 +39,7 @@ class CustomerController extends AdminBaseController
     //禁用用户
     public function disable()
     {
-        $status = StudentModel::where('student_id', input('student_id'))->find();
+        $status = CustomerModel::where('student_id', input('student_id'))->find();
 
         $status->student_status = 0;
         $status->save();
@@ -48,9 +49,9 @@ class CustomerController extends AdminBaseController
     }
 
     //用户详情
-    public function studentDetail()
+    public function detail()
     {
-        $studentinfo = new StudentModel();
+        $studentinfo = new CustomerModel();
         $data = $studentinfo->editList(input('student_id'));
         //dump($data);
         $this->assign('data', $data);
@@ -61,13 +62,13 @@ class CustomerController extends AdminBaseController
     //编辑用户
     public function studentEdit()
     {
-        $studentinfo = new StudentModel();
+        $studentinfo = new CustomerModel();
         $editdata = $studentinfo->editList(input('student_id'));
         //dump($editdata);
         $this->assign('data', $editdata);
 
             //修改用户所属班级
-            $edit = StudentModel::where('student_id',input('student_id'))->find();
+            $edit = CustomerModel::where('student_id',input('student_id'))->find();
             if($this->request->isPost()) {
                 $edit->class_id = input('class_id');
 
@@ -81,7 +82,7 @@ class CustomerController extends AdminBaseController
     //搜索用户
     public function studentSearch()
     {
-        $stuSearch = new StudentModel();
+        $stuSearch = new CustomerModel();
         $data = $stuSearch->stuSearch(input('student_number'),input('student_name'));
 
         $page = $data->render();
@@ -93,7 +94,7 @@ class CustomerController extends AdminBaseController
     //删除用户
     public function studentDelete()
     {
-        StudentModel::where('student_id', input('student_id'))->delete();
+        CustomerModel::where('student_id', input('student_id'))->delete();
         $this->success('删除成功！','index');
         return $this->fetch();
     }
@@ -101,7 +102,7 @@ class CustomerController extends AdminBaseController
     //各班级绑定统计
     public function classBind()
     {
-        $class = new StudentModel();
+        $class = new CustomerModel();
         $data = $class->classTotal();
         $page = $data->render();
         //dump($data);
@@ -120,7 +121,7 @@ class CustomerController extends AdminBaseController
     //某班级绑定详情
     public function classBindDetail()
     {
-        $class = new StudentModel();
+        $class = new CustomerModel();
         $data  = $class->classBindDetail(input('class_id'));
 
         //dump($data);
@@ -141,7 +142,7 @@ class CustomerController extends AdminBaseController
     //各食堂绑定用户统计
     public function canteenBind()
     {
-        $canteen = new StudentModel();
+        $canteen = new CustomerModel();
         $data = $canteen->canteenTotal();
         $page = $data->render();
         //dump($data);
@@ -160,7 +161,7 @@ class CustomerController extends AdminBaseController
     //某食堂绑定用户详情
     public function canteenBindDetail()
     {
-        $canteen = new StudentModel();
+        $canteen = new CustomerModel();
         $data  = $canteen->canteenBindDetail(input('canteen_id'));
 
         dump($data);

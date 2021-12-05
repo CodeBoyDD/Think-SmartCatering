@@ -15,37 +15,43 @@
                 创建班级信息
             </div>
             <div class="panel-body">
+
                 <div class="form-group">
-                    <label for="school_id" class="col-sm-2 control-label"><span class="form-required">*</span> 学校编号</label>
-                    <div class="col-md-6 col-sm-10">
-                        <input type="text" class="form-control" id="school_id" name="school_id">
+                    <label for="school_no" class="col-sm-2 control-label"><span class="form-required">*</span> 学校编号</label>
+                    <div class="col-sm-6">
+                        <select class="form-control" name="school_no" id="school_no">
+                            <option value="0">请选择学校</option>
+                            <foreach name="school" item="vo">
+                                <option value="{$vo.school_no}">{$vo.school_name}</option>
+                            </foreach>
+                        </select>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="class_name" class="col-sm-2 control-label"><span class="form-required">*</span> 班级编号</label>
+                    <label for="class_no" class="col-sm-2 control-label"><span class="form-required">*</span> 班级编号</label>
                     <div class="col-md-6 col-sm-10">
-                        <input type="text" class="form-control" id="class_id" name="class_id">
+                        <input type="text" class="form-control" id="class_no" name="class_no">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="name" class="col-sm-2 control-label"><span class="form-required">*</span> 班级名称</label>
+                    <label for="class" class="col-sm-2 control-label"><span class="form-required">*</span> 班级名称</label>
                     <div class="col-md-6 col-sm-10">
-                        <input type="text" class="form-control" id="name" name="name">
+                        <input type="text" class="form-control" id="class" name="class">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="number" class="col-sm-2 control-label"><span class="form-required">*</span> 班级人数</label>
+                    <label for="class_number" class="col-sm-2 control-label"><span class="form-required">*</span> 班级人数</label>
                     <div class="col-md-6 col-sm-10">
-                        <input type="text" class="form-control" id="number" name="number">
+                        <input type="text" class="form-control" id="class_number" name="class_number">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-primary">创建班级</button>
+                        <button type="submit" class="btn btn-primary js-ajax-submit">创建班级</button>
                         <a class="btn btn-default" href="{:url('index')}">{:lang('BACK')}</a>
                     </div>
                 </div>
@@ -55,7 +61,7 @@
 
 
     </form>
-
+</div>
 <script src="__STATIC__/js/admin.js"></script>
 </body>
 </html>

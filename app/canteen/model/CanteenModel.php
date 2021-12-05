@@ -2,46 +2,45 @@
 namespace app\canteen\model;
 
 use think\Model;
-use \think\db\Query;
 use think\facade\Db;
 
 class CanteenModel extends Model
 {
     protected $pk    =  'id';
-    protected $table =  'yfc_canteen';
+    protected $table =  'yfc_a_canteen';
 
-    //食堂表Join学校表
-    public function canJoinSch()
+    /*学校表Join食堂表 => 食堂部分相同字段覆盖学校字段*/
+    public function schJoinCan()
     {
-        $data = Db::table('yfc_school')
-            ->alias('sch')
-            ->Join(['yfc_canteen'=>'can'],'can.school_id = sch.school_id');
+        $data = Db::table('yfc_a_school')
+            ->alias('school')
+            ->Join(['yfc_a_canteen'=>'canteen'],'canteen.school_no = school.school_no');
         return $data;
     }
 
-    //搜索食堂信息-->[id,名称]
-    public function canSearch($can_id,$name)
+    /*搜索食堂信息-->[编号,食堂]*/
+    public function canSearch($can_no,$canteen)
     {
-        // 编号搜索
-        $canteen_id = [];
-        if ($can_id){
-            $canteen_id = function ($query) use($can_id){
-                $query->where('can_id',$can_id);
+        /*编号模糊搜索*/
+        $can_id = [];
+        if ($can_no){
+            $can_id = function ($query) use($can_no){
+                $query->where('can_no','LIKE',"%$can_no%");
             };
         }
 
-        // 标题模糊搜索
-        $canteen_name = [];
-        if ($name){
-            $canteen_name = function ($query) use($name){
-                $query->where('name','LIKE',"%$name%");
+        /*标题模糊搜索*/
+        $can_name = [];
+        if ($canteen){
+            $can_name = function ($query) use($canteen){
+                $query->where('canteen','LIKE',"%$canteen%");
             };
         }
 
-        //查询关联信息
-         $data = $this->canJoinSch()
-            ->where($canteen_id)
-            ->whereOr($canteen_name);
+        /*查询关联信息*/
+         $data = $this->schJoinCan()
+            ->where($can_id)
+            ->whereOr($can_name);
         return $data;
     }
 }

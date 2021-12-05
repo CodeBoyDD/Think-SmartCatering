@@ -4,22 +4,24 @@ namespace app\canteen\model;
 use think\facade\Db;
 use think\Model;
 
-class StudentModel extends Model
+class CustomerModel extends Model
 {
-    protected $pk = 'student_id';
-    protected $table = 'cmf_baocan_student';
+    protected $pk = 'id';
+    protected $table = 'yfc_customer';
+
 
     //班级-学生-食堂关联信息 [学生<=>班级<=>食堂]
-    public function studentList()
+    public function customerList()
     {
         //左连接-->未绑定
-        $data = Db::table('cmf_baocan_student')
-            ->alias('student')
-            ->leftJoin(['cmf_baocan_class'=>'class'],'student.class_id=class.class_id')
-            ->leftjoin(['cmf_baocan_canteen'=>'canteen'],'student.canteen_id=canteen.canteen_id')
-            ->paginate(10);
+        $data = Db::table('yfc_customer')
+            ->alias('customer')
+            ->leftJoin(['yfc_class'=>'class'],'customer.class_id=customer.class_id')
+            ->leftjoin(['yfc_canteen'=>'canteen'],'customer.can_id=customer.can_id');
         return $data;
     }
+
+
 
 
     //编辑班级-学生-食堂管理信息 [学生<=>班级<=>食堂]

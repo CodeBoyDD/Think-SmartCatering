@@ -7,53 +7,50 @@ use think\facade\Db;
 class ClassModel extends Model
 {
     protected $pk    =  'id';
-    protected $table =  'yfc_class';
+    protected $table =  'yfc_a_class';
 
-    //班级Join用户Join学校
+    /*班级Join用户Join学校*/
     public function claJoinStuJoinSch()
     {
-        $data = Db::table('yfc_class')
+        return Db::table('yfc_a_class')
             ->alias('class')
-            ->leftjoin(['yfc_school'=>'school'],'class.school_id = school.school_id')
-            ->leftjoin(['yfc_customer'=>'customer'],'class.class_id = customer.class_id');
-        return $data;
+            ->leftjoin(['yfc_a_school'=>'school'],'class.school_no = school.school_no')
+            ->leftjoin(['yfc_a_customer'=>'customer'],'class.class_no = customer.class_no')
+            ->field('*,class.id AS class_id,customer.id AS cus_id,class.class_no AS cla_no');
     }
 
-
-    //首页显示学校-班级-学生关联信息
+    /*首页显示学校-班级-学生关联信息*/
     public function classList()
     {
          $data = $this->claJoinStuJoinSch()
-            ->field('class.id,class.school_id,school_name,class.class_id,class.name,number,count(customer.class_id) AS bind_number')
-            ->group('class.class_id')
-            ->paginate(10);
+            ->field('count(customer.class_no) AS bind_number')
+            ->group('class.class_no');
         return $data;
     }
 
-    //模糊搜索班级信息
-    public function classSearch($class_id,$name)
+    /*模糊搜索班级信息*/
+    public function classSearch($class_no,$class)
     {
-        // 编号搜索
-        $classid = [];
-        if ($class_id){
-            $classid = function ($query) use($class_id){
-                $query->where('class.class_id',$class_id);
+         /*编号搜索*/
+        $id = [];
+        if ($class_no){
+            $id = function ($query) use($class_no){
+                $query->where('class.class_no','LIKE',"%$class_no%");
             };
         }
 
-        // 标题模糊搜索
-        $classname = [];
-        if ($name){
-            $classname = function ($query) use($name){
-                $query->where('class.name','LIKE',"%$name%");
+        /*标题模糊搜索*/
+        $cname = [];
+        if ($class){
+            $cname = function ($query) use($class){
+                $query->where('class','LIKE',"%$class%");
             };
         }
 
-        $data = $this->claJoinStuJoinSch()
-            ->where($classid)
-            ->whereOr($classname);
+        $data = $this->classList()
+            ->where($id)
+            ->whereOr($cname);
         return $data;
     }
-
 
 }
