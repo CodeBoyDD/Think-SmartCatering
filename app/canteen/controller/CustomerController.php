@@ -17,7 +17,7 @@ class CustomerController extends AdminBaseController
         //dump($data);
         $page = $data->render();
 
-        /*计算班级总数*/
+        /*计算用户总数*/
         $sum     = $data->total();
 
         /*根据分页数+$key+1实现递增序号*/
@@ -25,7 +25,6 @@ class CustomerController extends AdminBaseController
         if($pagenum  <= 1) {$pagenum = 1;}
         $pagenum = ((int)$pagenum -1)*10;//当前页码减1乘以10
 
-        //dump($data);
         $this->assign('data', $data);
         $this->assign('page', $page);
         $this->assign('sum',$sum);
@@ -63,7 +62,7 @@ class CustomerController extends AdminBaseController
     public function cusDetail()
     {
         $customer = new CustomerModel();
-        $data = $customer->editList(input('id'));
+        $data = $customer->customerDetail(input('id'));
         //dump($data);
         $this->assign('data', $data);
 
@@ -73,22 +72,17 @@ class CustomerController extends AdminBaseController
     /*编辑用户 -> 修改用户班级*/
     public function cusEdit()
     {
-        //$data = $customer->editList(input('id'));
-        //dump($data);
-        //$this->assign('data', $data);
-
-        //$customer = new CustomerModel();
         /*修改用户所属班级*/
         $edit = CustomerModel::where('id',input('id'))->find();
         $class = ClassModel::select();
         $this->assign('class',$class);
         $this->assign('data',$edit);
 
-            if(request()->isPost()) {
-                $edit->class_no = input('class_no');
-                $edit->save();
-                $this->success('修改学生信息成功！','index');
-            }
+        if(request()->isPost()) {
+            $edit->class_no = input('class_no');
+            $edit->save();
+            $this->success('修改学生信息成功！','index');
+        }
         return $this->fetch();
     }
 
@@ -96,7 +90,7 @@ class CustomerController extends AdminBaseController
     public function cusSearch()
     {
         $customer = new CustomerModel();
-        $data = $customer->customerSearch(input('cus_no'),input('customer'));
+        $data = $customer->customerSearch(input('cus_no'),input('customer'))->paginate(10);;
         dump($data);
 
         $page = $data->render();
@@ -130,9 +124,20 @@ class CustomerController extends AdminBaseController
         $class = new CustomerModel();
         $data = $class->classBindTotal()->paginate(10);
         $page = $data->render();
-        dump($data);
+
+        /*计算班级总数*/
+        $sum     = $data->total();
+
+        /*根据分页数+$key+1实现递增序号*/
+        $pagenum = input('page');
+        if($pagenum  <= 1) {$pagenum = 1;}
+        $pagenum = ((int)$pagenum -1)*10;//当前页码减1乘以10
+
+        //dump($data);
         $this->assign('data',$data);
         $this->assign('page',$page);
+        $this->assign('pagenum',$pagenum);
+        $this->assign('sum',$sum);
 
         return $this->fetch();
     }
@@ -154,62 +159,97 @@ class CustomerController extends AdminBaseController
     public function classBindDetail()
     {
         $class = new CustomerModel();
-        $class_no = input('class_no');
-        $data  = $class->classBindDetails($class_no)->paginate(10);
 
-        dump($data);
+        /*列举出该班级内绑定用户*/
+        $data = $class->classBindDetails(input('class_no'))->paginate(10);
 
         $page = $data->render();
-        $this->assign('data',$data);
-        $this->assign('page',$page);
+        /*计算班级总数*/
+        $sum     = $data->total();
+
+        /*根据分页数+$key+1实现递增序号*/
+        $pagenum = input('page');
+        if($pagenum  <= 1) {$pagenum = 1;}
+        $pagenum = ((int)$pagenum -1)*10;//当前页码减1乘以10
+
+        $this->assign('data', $data);
+        $this->assign('page', $page);
+        $this->assign('sum',$sum);
+        $this->assign('pagenum',$pagenum);
 
         return $this->fetch();
     }
 
-    /*某班级绑定详情 -> 该班级内用户搜索*/
-    public function classBindDetailSearch()
-    {
-
-    }
-
     /*各食堂绑定用户统计*/
-    public function canteenBind()
+    public function canBindCount()
     {
         $canteen = new CustomerModel();
-        $data = $canteen->canteenTotal();
-        $page = $data->render();
+        $data = $canteen->canteenTotal()->paginate(10);
+
         //dump($data);
+
+        $page = $data->render();
+        /*计算搜索用户总数*/
+        $sum     = $data->total();
+
+        /*根据分页数+$key+1实现递增序号*/
+        $pagenum = input('page');
+        if($pagenum  <= 1) {$pagenum = 1;}
+        $pagenum = ((int)$pagenum -1)*10;//当前页码减1乘以10
 
         $this->assign('data',$data);
         $this->assign('page',$page);
+        $this->assign('sum',$sum);
+        $this->assign('pagenum',$pagenum);
         return $this->fetch();
     }
 
     /*各食堂绑定用户统计内搜索 -> 食堂搜索*/
-    public function canteenBindSearch()
+    public function canBindSearch()
     {
+        $class = new CustomerModel();
+        $data = $class->canteenTotalSearch(input('can_no'),input('canteen'))->paginate(10);
+        //dump($data);
 
+        $page = $data->render();
+        /*计算搜索用户总数*/
+        $sum     = $data->total();
+
+        /*根据分页数+$key+1实现递增序号*/
+        $pagenum = input('page');
+        if($pagenum  <= 1) {$pagenum = 1;}
+        $pagenum = ((int)$pagenum -1)*10;//当前页码减1乘以10
+
+        $this->assign('sum',$sum);
+        $this->assign('pagenum',$pagenum);
+        $this->assign('data',$data);
+        $this->assign('page',$page);
+        return $this->fetch();
     }
 
     /*某食堂绑定用户详情*/
-    public function canteenBindDetail()
+    public function canBindDetail()
     {
         $canteen = new CustomerModel();
-        $data  = $canteen->canteenBindDetail(input('canteen_id'));
+        $data  = $canteen->canteenBindDetail(input('can_no'));
 
         dump($data);
+
+        /*计算搜索用户总数*/
+        $sum     = $data->total();
+
+        /*根据分页数+$key+1实现递增序号*/
+        $pagenum = input('page');
+        if($pagenum  <= 1) {$pagenum = 1;}
+        $pagenum = ((int)$pagenum -1)*10;//当前页码减1乘以10
 
         $page = $data->render();
         $this->assign('data',$data);
         $this->assign('page',$page);
+        $this->assign('sum',$sum);
+        $this->assign('pagenum',$pagenum);
 
         return $this->fetch();
-    }
-
-    /*某食堂绑定用户详情内搜索 -> 该食堂内用户搜索*/
-    public function canteenBindDetailSearch()
-    {
-
     }
 
 }

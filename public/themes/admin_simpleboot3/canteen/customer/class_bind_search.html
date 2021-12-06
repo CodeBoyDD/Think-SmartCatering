@@ -16,7 +16,7 @@
     <ul class="nav nav-tabs">
         <li><a href="{:url('index')}">用户管理</a></li>
         <li><a href="{:url('classBindCount')}">各班级绑定统计</a></li>
-        <li><a href="{:url('canteenBindCount')}">各食堂绑定统计</a></li>
+        <li><a href="{:url('canBindCount')}">各食堂绑定统计</a></li>
         <li class="active"><a href="{:url('classBindSearch')}">各班级绑定统计内搜索</a></li>
     </ul>
 
@@ -50,7 +50,7 @@
                     <td>{$vo.customer_total}</td>
                     <td>{$vo.class_number - $vo.customer_total}</td>
                     <td>
-                        <a class="btn btn-xs btn-primary" href="{:url('classBindDetail',array('id'=>$vo['class_id'],'class_no'=>$vo['cclass_no']) )}">绑定详情</a>
+                        <a class="btn btn-xs btn-primary" href="{:url('classBindDetail',array('class_no'=>$vo['cclass_no']) )}">绑定详情</a>
                     </td>
                 </tr>
             </foreach>

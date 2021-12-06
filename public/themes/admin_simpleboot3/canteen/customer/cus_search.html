@@ -5,15 +5,15 @@
 
     <ul class="nav nav-tabs">
         <li><a href="{:url('index')}">用户管理</a></li>
-        <li><a href="{:url('classBind')}">各班级绑定统计</a></li>
-        <li><a href="{:url('canteenBind')}">各食堂绑定统计</a></li>
+        <li><a href="{:url('classBindCount')}">各班级绑定统计</a></li>
+        <li><a href="{:url('canBindCount')}">各食堂绑定统计</a></li>
         <li class="active"><a href="{:url('cusSearch')}">用户搜索</a></li>
     </ul>
 
     <form class="well form-inline margin-top-20" method="post" action="">
-        学生学号:
+        用户编号:
         <input type="text" class="form-control" name="cus_no" style="width: 200px;" placeholder="请输入用户编号">
-        学生姓名:
+        用户姓名:
         <input type="text" class="form-control" name="customer" style="width: 200px;" placeholder="请输入用户姓名">
         <input type="submit" class="btn btn-primary" value="搜索" />
         <a class="btn btn-danger" href="{:url('index')}">清空</a>

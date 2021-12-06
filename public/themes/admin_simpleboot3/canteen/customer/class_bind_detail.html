@@ -5,7 +5,7 @@
     <ul class="nav nav-tabs">
         <li><a href="{:url('index')}">用户管理</a></li>
         <li><a href="{:url('classBindCount')}">各班级绑定统计</a></li>
-        <li><a href="{:url('canteenBindCount')}">各食堂绑定统计</a></li>
+        <li><a href="{:url('canBindCount')}">各食堂绑定统计</a></li>
         <li class="active"><a href="{:url('classBindDetail')}">班级-用户绑定详情</a></li>
     </ul>
 
@@ -15,6 +15,7 @@
         学生姓名:
         <input type="text" class="form-control" name="customer" style="width: 200px;" placeholder="请输入学生姓名">
         <input type="submit" class="btn btn-primary" value="搜索" />
+        <label class="form-control" style="float:right;">用户总数:{$sum}</label>
         <button type="reset" class="btn btn-danger">清空</button>
     </form>
 
@@ -22,41 +23,66 @@
         <table class="table table-hover table-bordered">
             <thead>
             <tr>
-                <th align="left" width="100">班级编号</th>
-                <th align="left">班级名称</th>
+                <th align="left">序号</th>
                 <th align="left">用户编号</th>
-                <th align="left">用户姓名</th>
-                <th width="60">{:lang('STATUS')}</th>
-                <th width="100">{:lang('ACTIONS')}</th>
+                <th align="left">用户名称</th>
+                <th align="left" width="60">类型</th>
+                <th align="left">班级名称</th>
+                <th align="left">绑定食堂</th>
+                <th align="left" width="60">状态</th>
+                <th width="135">更多操作</th>
             </tr>
             </thead>
-
             <tbody>
-            <foreach name="data" item="vo">
-                <tr>
-                    <td>{$vo.class_no}</td>
-                    <td>{$vo.class}</td>
-                    <td>{$vo.cus_no}</td>
-                    <td>{$vo.customer}</td>
-                    <td>
-                        <if condition="$vo['cus_status'] eq 1">
-                            <a class="btn btn-xs btn-success js-ajax-dialog-btn"
-                               href="{:url('disable',array('id'=>$vo['cus_id']))}"
-                               data-msg="确定禁用吗？">启用</a>
-                            <else />
-                            <a class="btn btn-xs btn-danger js-ajax-dialog-btn"
-                               href="{:url('enable',array('id'=>$vo['cus_id']))}"
-                               data-msg="确定启用吗？">禁用</a>
-                        </if>
-                    </td>
-                    <td>
-                        <a class="btn btn-xs btn-primary" href="{:url('cusEdit',array('id'=>$vo['cus_id']))}">{:lang('EDIT')}</a>
-                        <a class="btn btn-xs btn-danger js-ajax-delete" href="{:url('cusDelete',array('id'=>$vo['cus_id']))}">{:lang('DELETE')}</a>
-                    </td>
-                </tr>
-            </foreach>
-            </tbody>
+                <foreach name="data" item="vo">
+                    <tr>
+                        <td>{$pagenum + $key + 1}</td>
+                        <td>{$vo.cus_no}</td>
+                        <td>{$vo.customer}</td>
+                        <td>
+                            <if condition="$vo['cus_type'] eq 0">
+                                学生
+                                <else />
+                                教师
+                            </if>
+                        </td>
 
+                        <td>
+                            <if condition="$vo.class eq null">
+                                <font style="color: red">未绑定班级</font>
+                                <else />
+                                {$vo.class}
+                            </if>
+                        </td>
+
+                        <td>
+                            <if condition="$vo['canteen'] eq null">
+                                <font style="color: red">未绑定食堂</font>
+                                <else />
+                                {$vo.canteen}
+                            </if>
+                        </td>
+
+                        <td>
+                            <if condition="$vo['cus_status'] eq 1">
+                                <a class="btn btn-xs btn-success js-ajax-dialog-btn"
+                                   href="{:url('disable',array('id'=>$vo['cus_id']))}"
+                                   data-msg="确定禁用吗？">启用</a>
+                                <else />
+                                <a class="btn btn-xs btn-danger js-ajax-dialog-btn"
+                                   href="{:url('enable',array('id'=>$vo['cus_id']))}"
+                                   data-msg="确定启用吗？">禁用</a>
+                            </if>
+                        </td>
+
+                        <td>
+                            <a class="btn btn-xs btn-default" href="{:url('cusDetail',array('id'=>$vo['cus_id']))}">详情</a>
+                            <a class="btn btn-xs btn-primary" href="{:url('cusEdit',array('id'=>$vo['cus_id']))}">{:lang('EDIT')}</a>
+                            <a class="btn btn-xs btn-danger" href="{:url('cusDelete',array('id'=>$vo['cus_id']))}">删除</a>
+                        </td>
+                    </tr>
+                </foreach>
+            </tbody>
         </table>
     </form>
 
