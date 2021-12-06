@@ -20,13 +20,13 @@
         <li class="active"><a href="{:url('classBindSearch')}">各班级绑定统计内搜索</a></li>
     </ul>
 
-    <form class="well form-inline margin-top-20" method="post" action="{:url('classBindSearch')}">
+    <form class="well form-inline margin-top-20" method="post" action="">
         班级编号:
         <input type="text" class="form-control" name="class_no" style="width: 200px;" placeholder="请输入班级编号">
         班级名称:
         <input type="text" class="form-control" name="class" style="width: 200px;" placeholder="请输入班级名称">
         <input type="submit" class="btn btn-primary" value="搜索" />
-        <a class="btn btn-danger" value=" ">清空</a>
+        <button type="reset" class="btn btn-danger">清空</button>
     </form>
 
     <form action="" method="post" class="margin-top-20">
@@ -50,7 +50,7 @@
                     <td>{$vo.customer_total}</td>
                     <td>{$vo.class_number - $vo.customer_total}</td>
                     <td>
-                        <a class="btn btn-xs btn-primary" href="{:url('classBindDetail',array('id'=>$vo['class_id']))}">绑定详情</a>
+                        <a class="btn btn-xs btn-primary" href="{:url('classBindDetail',array('id'=>$vo['class_id'],'class_no'=>$vo['cclass_no']) )}">绑定详情</a>
                     </td>
                 </tr>
             </foreach>
