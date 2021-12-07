@@ -4,8 +4,8 @@
 <div class="wrap js-check-wrap">
     <ul class="nav nav-tabs">
         <li><a href="{:url('index')}">公告管理</a></li>
-        <li><a href="{:url('noticeAdd')}">发布公告</a></li>
-        <li class="active"><a href="{:url('noticeEdit')}">编辑公告</a></li>
+        <li><a href="{:url('add')}">发布公告</a></li>
+        <li class="active"><a href="{:url('edit')}">编辑公告</a></li>
     </ul>
     <form class="form-horizontal js-ajax-form margin-top-20" action="" method="post">
 
@@ -15,9 +15,28 @@
             </div>
             <div class="panel-body">
                 <div class="form-group">
-                    <label for="input-notice_title" class="col-sm-2 control-label"><span class="form-required">*</span> 公告标题</label>
+                    <label for="n_no" class="col-sm-2 control-label"><span class="form-required">*</span> 公告编号</label>
                     <div class="col-md-6 col-sm-10">
-                        <input type="text" class="form-control" id="input-notice_title" name="notice_title" value="{$editdata.notice_title}">
+                        <input type="text" class="form-control" id="n_no" name="n_no" value="{$data.n_no}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="n_title" class="col-sm-2 control-label"><span class="form-required">*</span> 公告标题</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="text" class="form-control" id="n_title" name="n_title" value="{$data.n_title}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="can_no" class="col-sm-2 control-label"><span class="form-required">*</span> 发布食堂</label>
+                    <div class="col-sm-6">
+                        <select class="form-control" name="can_no" id="can_no">
+                            <option value="0">请选择食堂发布</option>
+                            <foreach name="canteen" item="vo">
+                                <option value="{$vo.can_no}">{$vo.canteen}</option>
+                            </foreach>
+                        </select>
                     </div>
                 </div>
 
@@ -33,7 +52,7 @@
 
                 <div class="form-group">
                     <div class="col-sm-12">
-                        <script type="text/plain" id="content" name="notice_content" style="height: 200px">{$editdata.notice_content}</script>
+                        <script type="text/plain" id="content" name="n_content" style="height: 200px">{$data.n_content}</script>
                     </div>
                 </div>
 
@@ -45,9 +64,6 @@
                 </div>
             </div>
         </div>
-
-
-
     </form>
 </div>
 <script src="__STATIC__/js/admin.js"></script>
