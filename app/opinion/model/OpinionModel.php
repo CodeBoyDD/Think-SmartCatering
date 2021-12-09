@@ -1,50 +1,81 @@
 <?php
 
-namespace app\baocan\model;
+namespace app\opinion\model;
 
 use think\facade\Db;
 use think\Model;
 
 class OpinionModel extends Model
 {
-    protected $pk = 'opinion_id';
-    protected $table = 'cmf_baocan_opinion';
+    protected $pk = 'id';
+    protected $table = 'yfc_a_opinion';
+
+    /*===============表操作===============*/
+
+    /*意见表左连接用户和食堂*/
+    public function opLjCusLjCan()
+    {
+        $data = Db::table('yfc_a_opinion')
+            ->alias('opinion')
+            ->leftJoin(['yfc_a_customer'=>'customer'],'opinion.cus_no = customer.cus_no')
+            ->leftJoin(['yfc_a_canteen'=>'canteen'],'opinion.can_no = canteen.can_no');
+        return $data;
+    }
+
+
+
+    /*==============功能实现==============*/
+
+    /*查询意见表及关联信息*/
+    public function opinionList()
+    {
+        $data = $this->opLjCusLjCan()
+            ->field('*,opinion.id AS op_id,customer.id AS cus_id,canteen.id AS can_id');
+        return $data;
+    }
+
+    /*意见详情关联信息*/
+    public function opinionDetail($id)
+    {
+        $data = $this->opinionList()
+            ->where('opinion.id',$id);
+        return $data;
+    }
 
     // 编号，标题，日期模糊搜索
-    public function opinionSearch($opinion_id,$opinion_title,$opinion_date)
+    public function opinionSearch($op_no,$op_title,$op_date)
     {
         // 日期模糊搜索
-        $wheredate = [];
-        if ($opinion_date){
-            $wheredate = function ($query) use($opinion_date){
-                $query->where('opinion_date','LIKE',"%$opinion_date%");
+        $whereDate = [];
+        if ($op_date){
+            $whereDate = function ($query) use($op_date){
+                $query->where('op_date','LIKE',"%$op_date%");
             };
         }
 
         // 编号搜索
-        $opinionid = [];
-        if ($opinion_id){
-            $opinionid = function ($query) use($opinion_id){
-                $query->where('opinion_id',$opinion_id);
+        $whereNo = [];
+        if ($op_no){
+            $whereNo = function ($query) use($op_no){
+                $query->where('op_no','LIKE',"%$op_no%");
             };
         }
 
         // 标题模糊搜索
-        $opiniontitle = [];
-        if ($opinion_title){
-            $opiniontitle = function ($query) use($opinion_title){
-                $query->where('opinion_title','LIKE',"%$opinion_title%");
+        $whereTitle = [];
+        if ($op_title){
+            $whereTitle = function ($query) use($op_title){
+                $query->where('op_title','LIKE',"%$op_title%");
             };
         }
 
         // 搜索SQL
-        $opinioninfo = Db::table('cmf_baocan_opinion')
-            ->where($opinionid)
-            ->whereOr($opiniontitle)
-            ->whereOr($wheredate)
-            ->select();
+        $data = $this->opinionList()
+            ->where($whereNo)
+            ->whereOr($whereTitle)
+            ->whereOr($whereDate);
 
-        return $opinioninfo;
+        return $data;
     }
 
 }
