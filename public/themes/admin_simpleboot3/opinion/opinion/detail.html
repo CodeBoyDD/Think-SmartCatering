@@ -25,16 +25,17 @@
 
                 <div class="form-group">
                     <div class="col-sm-12">
-                        <script type="text/plain" id="content" name="opinion_visit" style="height: 200px">{$data.v_content}</script>
+                        <script type="text/plain" id="content" name="v_content" style="height: 200px">{$data.v_content}</script>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <div class="col-sm-12">
-                        <button type="submit" class="btn btn-primary">意见回访</button>
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary js-ajax-submit">意见回访</button>
                         <a class="btn btn-default"  href="{:url('index')}">{:lang('BACK')}</a>
                     </div>
                 </div>
+
             </div>
         </div>
 

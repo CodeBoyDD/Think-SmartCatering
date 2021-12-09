@@ -107,7 +107,7 @@ class NoticeController extends AdminBaseController
         $id = input('id');
         $data = $notice->noticeList()->where('notice.id',$id)->find();
 
-        dump($data);
+        //dump($data);
         $this->assign('data',$data);
 
         return $this->fetch();

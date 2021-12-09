@@ -68,7 +68,7 @@ class CanteenController extends AdminBaseController
         if (request()->isPost())
         {
             CanteenModel::where('id', input('id'))->delete();
-            return $this->success('删除数据成功', 'index');
+            return $this->success('删除数据成功');
         }
         return $this->fetch();
     }
