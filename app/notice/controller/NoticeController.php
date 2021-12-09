@@ -36,7 +36,7 @@ class NoticeController extends AdminBaseController
         return $this->fetch();
     }
 
-    //添加公告
+    /*添加公告*/
     public function add()
     {
         $notice = new NoticeModel();
@@ -67,7 +67,7 @@ class NoticeController extends AdminBaseController
         return $this->fetch();
     }
 
-    //编辑公告
+    /*编辑公告*/
     public function edit()
     {
         $edit = NoticeModel::where('id', input('id'))->find();
@@ -90,7 +90,7 @@ class NoticeController extends AdminBaseController
         return $this->fetch();
     }
 
-    //删除公告
+    /*删除公告*/
     public function delete()
     {
         if(request()->isPost()) {
@@ -99,7 +99,7 @@ class NoticeController extends AdminBaseController
         }
     }
 
-    //公告详情
+    /*公告详情*/
     public function detail()
     {
         $notice = new NoticeModel();
@@ -113,7 +113,7 @@ class NoticeController extends AdminBaseController
         return $this->fetch();
     }
 
-    //搜索公告
+    /*搜索公告*/
     public function search()
     {
         $notice       = new NoticeModel();
@@ -144,7 +144,7 @@ class NoticeController extends AdminBaseController
         return $this->fetch();
     }
 
-    //发布公告
+    /*发布公告*/
     public function enable()
     {
         $status = NoticeModel::where('id', input('id'))->find();
@@ -156,7 +156,7 @@ class NoticeController extends AdminBaseController
         return $this->success('修改成功！');
     }
 
-    //禁用公告
+    /*禁用公告*/
     public function disable()
     {
         $status = NoticeModel::where('id', input('id'))->find();
@@ -168,7 +168,7 @@ class NoticeController extends AdminBaseController
         return $this->success('修改状态成功！');
     }
 
-    //上传文件，图片
+    /*上传文件，图片*/
     public function upload()
     {
         return $this->fetch();

@@ -100,7 +100,7 @@ class CanteenController extends AdminBaseController
         return $this->fetch();
     }
 
-    //搜索食堂
+    /*搜索食堂*/
     public function search()
     {
         $canteen = new CanteenModel();
@@ -131,7 +131,7 @@ class CanteenController extends AdminBaseController
         return $this->fetch();
     }
 
-    //启用食堂
+    /*启用食堂*/
     public function enable()
     {
         $data = input('id');
@@ -141,10 +141,10 @@ class CanteenController extends AdminBaseController
         $status->save();
 
         //返回ajax请求不刷新页面
-        return $this->success('修改食堂状态成功！','index');
+        return $this->success('修改食堂状态成功！');
     }
 
-    //禁用食堂
+    /*禁用食堂*/
     public function disable()
     {
         $data = input('id');
@@ -154,7 +154,7 @@ class CanteenController extends AdminBaseController
         $status->save();
 
         //返回ajax请求不刷新页面
-        return $this->success('修改食堂状态成功！','index');
+        return $this->success('修改食堂状态成功！');
     }
 
 }

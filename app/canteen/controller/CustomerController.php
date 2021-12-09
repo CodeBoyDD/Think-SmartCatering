@@ -114,7 +114,7 @@ class CustomerController extends AdminBaseController
     public function cusDelete()
     {
         CustomerModel::where('id', input('id'))->delete();
-        $this->success('删除成功！','index');
+        $this->success('删除成功！');
         return $this->fetch();
     }
 

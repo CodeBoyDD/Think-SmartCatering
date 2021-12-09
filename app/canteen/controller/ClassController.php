@@ -2,7 +2,6 @@
 
 namespace app\canteen\controller;
 
-use think\Db;
 use app\canteen\model\ClassModel;
 use app\canteen\model\SchoolModel;
 use cmf\controller\AdminBaseController;
@@ -62,7 +61,7 @@ class ClassController extends AdminBaseController
     {
         if (request()->isPost()) {
             ClassModel::where('id', input('id'))->delete();
-            return $this->success('删除数据成功！', 'index');
+            return $this->success('删除数据成功！');
         }
         return $this->fetch();
     }
