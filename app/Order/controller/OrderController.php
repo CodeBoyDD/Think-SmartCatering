@@ -25,6 +25,7 @@ class OrderController extends AdminBaseController
         return $this->fetch();
     }
 
+    //
     public function ordcontrol(){
         $time1 =$this->request->param('time1');
         $time2 = $this->request->param('time2');
@@ -59,6 +60,7 @@ class OrderController extends AdminBaseController
     {
         $school = new SchoolModel();
         $select = $school::select()->toArray();
+
         //$can_no='';
         $this->assign([
             'select'=>$select,
@@ -72,6 +74,7 @@ class OrderController extends AdminBaseController
             $this->assign('select2',$select2);
 //            dump($select2);
 //            $can_no = $this->request->param('can_no');
+
             Cache::set("can_no",$this->request->param('can_no'));
             }
             if (Cache::get("can_no")){
@@ -81,7 +84,8 @@ class OrderController extends AdminBaseController
 
         return $this->fetch();
     }
-//    改变供应状态
+
+    //改变供应状态
     public function pri_set1(){
         if ($this->request->isPost()) {
             $id = $this->request->param('id', 0, 'intval');
@@ -100,6 +104,8 @@ class OrderController extends AdminBaseController
             }
         }
     }
+
+    //
     public function pri_set2(){
         if ($this->request->isPost()) {
             $id = $this->request->param('id', 0, 'intval');
