@@ -1,0 +1,60 @@
+<include file="public@header" />
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li><a href="{:url('set/index')}">餐类列表</a></li>
+        <li class="active"><a href="{:url('set/list2')}">用户列表</a></li>
+    </ul>
+    <table class="table table-hover table-bordered">
+        <thead>
+        <tr>
+            <th class="text-center">所属学校</th>
+            <th class="text-center">所属班级</th>
+            <th class="text-center">用户</th>
+            <th class="text-center">用户id</th>
+            <th class="text-center">报餐状态</th>
+            <th class="text-center">允许取消报餐状态</th>
+            <th class="text-center">可取消报餐的时间</th>
+        </tr>
+        </thead>
+        <tbody>
+        <foreach name="data" item="vo1">
+            <foreach name="vo1" item="vo2">
+                <foreach name="vo2" item="vo">
+                    <tr>
+                        <td class="text-center"><span class="label label-danger">{$vo.school_name}</span></td>
+                        <td class="text-center"><span class="label label-warning">{$vo.class_name}</span></td>
+                        <td class="text-center"><span class="label label-success">{$vo.customer}</span></td>
+                        <td class="text-center">{$vo.cus_no}</td>
+                        <td class="text-center">
+                            <if condition="$vo['meal_status'] eq 1">
+                                <span class="label label-danger">报餐中</span>
+                                <else />
+                                <span class="label label-default">未报餐</span>
+                            </if>
+                        </td>
+                        <td class="text-center">
+                            <if condition="$vo['is_allow_status'] eq 1">
+                                <span class="label label-warning">允许</span>
+                                <else />
+                                <span class="label label-primary">禁止</span>
+                            </if>
+                        </td>
+                        <td class="text-center"><input type="time" disabled="disabled" value="{$vo.is_allow_time}"/></td>
+                    </tr>
+                </foreach>
+            </foreach>
+        </foreach>
+
+        </tbody>
+
+
+
+    </table>
+
+
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

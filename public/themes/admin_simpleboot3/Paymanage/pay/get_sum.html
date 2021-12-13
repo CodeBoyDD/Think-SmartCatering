@@ -1,0 +1,42 @@
+<include file="public@header" />
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+            <li class="active"><a href="{:url('pay/getSum',array('status'=>1))}">已缴费用户列表</a></li>
+            <li><a href="{:url('pay/getSum',array('status'=>0))}">未缴用户列表</a></li>
+    </ul>
+
+    <if condition="$data eq null">
+        <h1>请在上面的选项中选择</h1>
+    <else/>
+    <table class="table table-hover table-bordered">
+        <thead>
+            <th>用户名</th>
+            <th>支付号</th>
+            <th>所属信息</th>
+            <th>缴费信息</th>
+        </tr>
+        </thead>
+            <tbody>
+            <foreach name="data" item="vo1">
+                <foreach name="vo1" item="vo2">
+                    <foreach name="vo2" item="vo">
+                        <tr>
+                            <td>{$vo.customer}</td>
+                            <td>{$vo.pay_no}</td>
+                            <td>{$vo.school_name}=>{$vo.class}</td>
+                            <td>缴费时间：{$vo.pay_time},总费用：{$vo.sum}</td>
+                        </tr>
+                    </foreach>
+                </foreach>
+                <h3>总人数：<span class="label label-default">{$data|count}</span></h3>
+            </foreach>
+            </tbody>
+
+    </table>
+    </if>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

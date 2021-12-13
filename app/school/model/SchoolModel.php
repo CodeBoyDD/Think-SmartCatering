@@ -34,4 +34,14 @@ class SchoolModel extends Model
         return $data;
     }
 
+    //
+    public function backtype($school_no){
+        return Db::table('yfc_a_setting s,yfc_a_type t,yfc_a_canteen c')
+            ->field('s.*,t.type,c.canteen')
+            ->where('t.can_no = c.can_no')
+            ->where('s.type_no = t.type_no')
+            ->where('c.school_no',$school_no)
+            ->select()->toArray();
+    }
+
 }

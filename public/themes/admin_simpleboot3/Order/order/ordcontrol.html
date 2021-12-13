@@ -8,9 +8,9 @@
     <div>
         <form class="well form-inline margin-top-20" mothod="post" action="{:url('Order/ordcontrol')}">
 <!--            <input class="js-bootstrap-datetime" type="text" name="time1" value="{:input('request.time1/s','')}" />&nbsp;-->
-            <input type="datetime-local" class="form-control" name="time1" value="{:input('request.time1/s','')}" autocomplete="off">&nbsp;
+            <input type="datetime-local" class="form-control" name="time1" value="{:input('request.time1/s','')}" autocomplete="off" />&nbsp;
             TO &nbsp;
-            <input type="datetime-local" class="form-control" name="time2" value="{:input('request.time2/s','')}" autocomplete="off">
+            <input type="datetime-local" class="form-control" name="time2" value="{:input('request.time2/s','')}" autocomplete="off" />
             <button type="submit" class="btn btn-primary">查询</button>
             <button type="reset" class="btn btn-danger">重置</button>
         </form>

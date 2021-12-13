@@ -1,0 +1,58 @@
+<include file="public@header" />
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <form action="{:url('Set/setfee')}" method="post">
+        <select id="first" name="school_no">
+            <option value="0">请选择学校</option>
+            <volist name="select" id="vo">
+                <option value="{$vo.school_no}">{$vo.school_name}</option>
+            </volist>
+        </select>
+        &nbsp;
+        <select  id="second" name="can_no">
+            <option value="0"></option>
+            <volist name="select2" id="vo">
+                <option value="{$vo.can_no}">{$vo.canteen}</option>
+            </volist>
+            <input type="submit" value="搜索">
+        </select>
+    </form>
+
+    <table class="table table-hover table-bordered">
+        <thead>
+        <tr>
+            <th>类型</th>
+            <th class="text-center">价格</th>
+            <th>更改</th>
+        </tr>
+        </thead>
+        <tbody>
+        <foreach name="data" item="vo">
+            <tr>
+                <td>{$vo.type}</td>
+                <form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('Set/fee',array('id'=>$vo['id']))}">
+                    <td>
+                        <div class="col-md-6 col-sm-10 col-sm-offset-3">
+                            <input type="text" class="form-control text-center"
+                                   name="fee" value="{:input('request.fee/s','')}" placeholder="{$vo.fee}">
+                        </div>
+                    </td>
+                    <td>
+                        <button type="submit" class="btn  btn-xs btn-primary ">确认更改</button>
+                        <button class="btn btn-xs btn-primary" type="reset" >清空</button>
+                    </td>
+                </form>
+            </tr>
+        </foreach>
+        </tbody>
+    </table>
+
+
+
+
+
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

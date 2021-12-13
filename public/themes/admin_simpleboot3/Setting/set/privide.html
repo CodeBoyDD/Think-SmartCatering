@@ -1,0 +1,62 @@
+<include file="public@header" />
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <form action="{:url('Set/privide')}" method="post">
+        <select id="first" name="school_no">
+            <option value="0">请选择学校</option>
+            <volist name="select" id="vo">
+                <option value="{$vo.school_no}">{$vo.school_name}</option>
+            </volist>
+        </select>
+        &nbsp;
+        <select  id="second" name="can_no">
+            <option value="0"></option>
+            <volist name="select2" id="vo">
+                <option value="{$vo.can_no}">{$vo.canteen}</option>
+            </volist>
+            <input type="submit" value="搜索">
+        </select>
+    </form>
+
+
+
+    <table class="table table-hover table-bordered">
+        <thead>
+        <tr>
+            <th>类型</th>
+            <th>状态</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <foreach name="data" item="vo">
+            <tr>
+                <td>{$vo.type}</td>
+                <td>
+                    <if condition="$vo['job_status'] eq 1">
+                        <span class="label label-default">供应中</span>
+                        <else />
+                        <span class="label label-danger">敬请期待</span>
+                    </if>
+                </td>
+                <td>
+                    <if condition="$vo['job_status'] eq 1">
+                        <a class="btn btn-xs btn-primary js-ajax-dialog-btn"
+                           href="{:url('Set/pri_set1',array('id'=>$vo['id']))}"
+                           data-msg="{:lang('确认嘛？')}">申请断缺</a>
+                        <else />
+                        <a class="btn btn-xs btn-primary js-ajax-dialog-btn"
+                           href="{:url('Set/pri_set2',array('id'=>$vo['id']))}"
+                           data-msg="{:lang('确认嘛？')}">申请提供</a>
+                    </if>
+                </td>
+
+            </tr>
+        </foreach>
+        </tbody>
+    </table>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

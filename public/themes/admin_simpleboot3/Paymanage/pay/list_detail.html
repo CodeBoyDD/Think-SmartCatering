@@ -1,0 +1,48 @@
+<include file="public@header" />
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li><a href="{:url('pay/listRough')}">订单列表</a></li>
+        <li class="active"><a href="{:url('pay/listDetail')}">订单详情</a></li>
+    </ul>
+    <form class="well form-inline margin-top-20"  mothod="post" action="{:url('pay/listDetail')}">
+        请输入时间段进行查询：
+        <input  class="form-control" type="datetime-local" name="time1" value="{:input('request.time1/s','')}"/>&nbsp;
+        &nbsp;TO &nbsp;
+        <input  class="form-control" type="datetime-local" name="time2" value="{:input('request.time2/s','')}" />
+        <input type="submit" value="查询">
+    </form>
+        <table class="table table-hover table-bordered">
+            <thead>
+            <tr style="background-color: rgba(0,0,0,0.1)">
+                <th>订单号</th>
+                <th>用户名</th>
+                <th>所属信息</th>
+                <th>食堂信息</th>
+                <th>订单信息</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <foreach name="data" item="vo1">
+                <foreach name="vo1" item="vo2">
+                    <foreach name="vo2" item="vo">
+                        <tr>
+                            <td>{$vo.order_no}</td>
+                            <td>{$vo.customer}</td>
+                            <td>{$vo.school_name}->{$vo.class}</td>
+                            <td>{$vo.canteen}->{$vo.address}</td>
+                            <td>{$vo.order_time}==>{$vo.type}==>{$vo.fee}</td>
+                        </tr>
+                        </if>
+                    </foreach>
+                </foreach>
+            </foreach>
+            </tbody>
+        </table>
+    </form>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

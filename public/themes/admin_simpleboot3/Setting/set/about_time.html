@@ -1,0 +1,71 @@
+<include file="public@header" />
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <form action="{:url('Set/aboutTime')}" method="post">
+        <select id="first" name="school_no">
+            <option value="0">请选择学校</option>
+            <volist name="select" id="vo">
+                <option value="{$vo.school_no}">{$vo.school_name}</option>
+            </volist>
+        </select>
+        &nbsp;
+        <select  id="second" name="can_no">
+            <option value="0"></option>
+            <volist name="select2" id="vo">
+                <option value="{$vo.can_no}">{$vo.canteen}</option>
+            </volist>
+            <input type="submit" value="搜索">
+        </select>
+    </form>
+
+    <table class="table table-hover table-bordered">
+        <thead>
+        <tr>
+            <th class="text-center" width="50">用餐类型</th>
+            <th class="text-center" width="140">修改开始时间</th>
+            <th class="text-center" width="140">修改结束时间</th>
+            <th class="text-center" width="140">设置</th>
+        </tr>
+        <foreach name="data" item="vo">
+            <tr>
+                <td class="text-center">{$vo.type}</td>
+                <form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('Set/getTime',array('id'=>$vo['id']))}">
+                    <td>
+                        <div class="col-md-7">
+                            <input type="time" class="form-control"
+                                   name="start_time" value="{:input('request.start_time/s','')}">
+                        </div>
+                        <div class="col-md-4">
+                            <span class="label label-danger" style="display: inline-block;vertical-align: middle">{$vo.start_time}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="col-md-7">
+                            <input type="time" class="form-control"
+                                   name="over_time" value="{:input('request.over_time/s','')}" placeholder="{$vo.over_time}">
+                        </div>
+                        <div class="col-md-4">
+                            <span class="label label-danger" style="display: inline-block;vertical-align: middle">{$vo.over_time}</span>
+                        </div>
+
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <input type="hidden" name="id" value="{$vo.id}" />
+                                <button type="submit" class="btn btn-xs btn-primary js-ajax-submit ">修改</button>
+                            </div>
+                        </div>
+                    </td>
+                </form>
+            </tr>
+        </foreach>
+        </thead>
+    </table>
+
+
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

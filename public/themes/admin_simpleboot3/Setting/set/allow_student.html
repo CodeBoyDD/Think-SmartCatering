@@ -1,0 +1,80 @@
+<include file="public@header" />
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <form action="{:url('Set/allowStudent')}" method="post">
+        <select id="first" name="school_no">
+            <option value="0">请选择学校</option>
+            <volist name="select" id="vo">
+                <option value="{$vo.school_no}">{$vo.school_name}</option>
+            </volist>
+        </select>
+        &nbsp;
+        <select  id="second" name="can_no">
+            <option value="0"></option>
+            <volist name="select2" id="vo">
+                <option value="{$vo.can_no}">{$vo.canteen}</option>
+            </volist>
+            <input type="submit" value="搜索">
+        </select>
+    </form>
+
+    <div>
+        <table class="table table-hover table-bordered">
+            <thead>
+            <tr>
+                <th class="text-center" width="50">用户名</th>
+                <th class="text-center" width="140">班级</th>
+                <th class="text-center" width="140">是否可取消报餐</th>
+                <th class="text-center" width="140">设置</th>
+                <th class="text-center" width="140">设置取消时间</th>
+            </tr>
+            </thead>
+            <tbody>
+            <foreach name="data" item="vo">
+                <tr>
+                    <td class="text-center">{$vo.customer}</td>
+                    <td class="text-center">{$vo.class_name}</td>
+                    <td class="text-center">
+                        <if condition="$vo['is_allow_status'] eq 1">
+                            <span class="label label-success">进行中</span>
+                            <else />
+                            <span class="label label-warning">拒绝中</span>
+                        </if>
+                    </td>
+                    <td class="text-center">
+                        <if condition="$vo['is_allow_status'] eq 1">
+                            <a class="btn btn-xs btn-primary js-ajax-dialog-btn"
+                               href="{:url('Set/allow1',array('id'=>$vo['id']))}"
+                               data-msg="{:lang('确认嘛？')}">禁止</a>
+                            <else />
+                            <a class="btn btn-xs btn-primary js-ajax-dialog-btn"
+                               href="{:url('Set/allow2',array('id'=>$vo['id']))}"
+                               data-msg="{:lang('确认嘛？')}">允许</a>
+                        </if>
+                    </td>
+                    <form type="post" action="{:url('set/allowTime')}">
+                    <td class="text-center">
+                        <if condition="$vo['is_allow_status'] eq 1">
+                            <input type="time" name="is_allow_time" value="{:input('request.is_allow_time/s','')}" placeholder="允许时间格式为分钟" />
+                            <input type="text" class="hidden" name="id" value="{$vo.id}">
+                            <input type="submit" class="btn btn-xs btn-primary" value="更改"/>
+                            <else />
+                            <input disabled="disabled" type="time" value="{$vo.is_allow_time}" />
+                            <input type="text" class="hidden" name="id" value="{$vo.id}">
+                            <input type="submit" disabled="disabled" class="btn btn-xs btn-primary disabled" value="更改"/>
+                        </if>
+                    </td>
+                    </form>
+                </tr>
+            </foreach>
+            </tbody>
+        </table>
+    </div>
+
+
+
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>
