@@ -1,0 +1,75 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+
+    <ul class="nav nav-tabs">
+        <li><a href="{:url('index')}">学校管理</a></li>
+        <li class="active"><a href="{:url('add')}">录入学校</a></li>
+    </ul>
+
+    <form class="form-horizontal js-ajax-form margin-top-20" action="" method="post">
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                录入学校信息
+            </div>
+            <div class="panel-body">
+
+                <div class="form-group">
+                    <label for="school_no" class="col-sm-2 control-label">
+                        <span class="form-required">*</span> 学校编号
+                    </label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="text" class="form-control" id="school_no" name="school_no">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="school_name" class="col-sm-2 control-label">
+                        <span class="form-required">*</span> 学校名称
+                    </label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="text" class="form-control" id="school_name" name="school_name">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary ">录入学校</button>
+                        <a class="btn btn-default" href="{:url('index')}">{:lang('BACK')}</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+<script>
+    function doSelectLocation(obj) {
+        var $obj       = $(obj);
+        var title      = $obj.data('title');
+        var $realInput = $obj;
+        var location   = $realInput.val();
+
+        parent.openIframeLayer(
+            "/admin/dialog/map.html?location=" + location,
+            title,
+            {
+                area: ['700px', '90%'],
+                btn: ['确定', '取消'],
+                yes: function (index, layero) {
+                    var iframeWin = parent.window[layero.find('iframe')[0]['name']];
+                    var location  = iframeWin.confirm();
+                    $realInput.val(location.lng + ',' + location.lat);
+                    //$obj.val(location.address);
+                    parent.layer.close(index); //如果设定了yes回调，需进行手工关闭
+                }
+            }
+        );
+    }
+
+</script>
+</body>
+</html>

@@ -174,5 +174,4 @@ class NoticeController extends AdminBaseController
         return $this->fetch();
     }
 
-
 }

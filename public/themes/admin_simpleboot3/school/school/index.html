@@ -1,0 +1,62 @@
+<include file="public@header" />
+</head>
+<body>
+<div class="wrap js-check-wrap">
+
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="{:url('index')}">学校管理</a></li>
+        <li><a href="{:url('add')}">录入学校</a></li>
+    </ul>
+
+    <form class="well form-inline margin-top-20" method="post" action="{:url('search')}">
+        学校编号:
+        <input type="text" class="form-control" name="school_no" style="width: 200px;" placeholder="请输入学校编号">
+        学校名称:
+        <input type="text" class="form-control" name="school_name" style="width: 200px;"  placeholder="请输入学校名称">
+
+        <button type="submit" class="btn btn-primary js-ajax-submit">搜索</button>
+        <button type="reset" class="btn btn-danger">清空</button>
+        <label class="form-control" style="float:right;">学校总数:{$sum}</label>
+    </form>
+
+
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th align="left" width="100">序号</th>
+                <th align="left">学校编号</th>
+                <th align="left">学校名称</th>
+                <th width="100">{:lang('ACTIONS')}</th>
+            </tr>
+        </thead>
+        <div>
+        </div>
+        <tbody>
+        <foreach name="data" item="vo">
+            <tr>
+                <td>{$key + $pagenum + 1}</td>
+                <td>{$vo.school_no}</td>
+                <td>{$vo.school_name}</td>
+                <td>
+                    <a class="btn btn-xs btn-primary js-ajax-delete" href="{:url('edit',array('id'=>$vo['id']))}">修改</a>
+                    <a class="btn btn-xs btn-danger js-ajax-delete" href="{:url('delete',array('id'=>$vo['id']))}">{:lang('DELETE')}</a>
+                </td>
+            </tr>
+        </foreach>
+        </tbody>
+    </table>
+
+    <div class="pagination">{$page}</div>
+
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+

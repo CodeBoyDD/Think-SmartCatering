@@ -19,6 +19,7 @@ class CanteenController extends AdminBaseController
         $canteen = new CanteenModel();
         $data    = $canteen->schJoinCan()->paginate(10);
 
+        //dump($data);
         /*计算食堂总数*/
         $sum     = $data->total();
 
@@ -51,7 +52,7 @@ class CanteenController extends AdminBaseController
             $data = input('param.');
             /*验证器*/
             $validate = $this->validate($data,'Canteen.create');
-            if($validate != true) {
+            if($validate !== true) {
                 return $this->error($validate);
             } else {
                 /*创建食堂*/

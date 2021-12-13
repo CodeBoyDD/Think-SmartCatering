@@ -1,0 +1,56 @@
+<include file="public@header" />
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="">报餐数量统计管理</a></li>
+    </ul>
+    <div>
+        <form class="well form-inline margin-top-20" mothod="post" action="{:url('Order/ordcontrol')}">
+<!--            <input class="js-bootstrap-datetime" type="text" name="time1" value="{:input('request.time1/s','')}" />&nbsp;-->
+            <input type="datetime-local" class="form-control" name="time1" value="{:input('request.time1/s','')}" autocomplete="off">&nbsp;
+            TO &nbsp;
+            <input type="datetime-local" class="form-control" name="time2" value="{:input('request.time2/s','')}" autocomplete="off">
+            <button type="submit" class="btn btn-primary">查询</button>
+            <button type="reset" class="btn btn-danger">重置</button>
+        </form>
+    </div>
+    <table class="table table-hover table-bordered">
+        <thead>
+        <tr>
+            <th>订单号</th>
+            <th>用户名</th>
+            <th>所属食堂</th>
+            <th>所属学校</th>
+            <th>所属班级</th>
+            <th>报餐状态</th>
+            <th>报餐时间</th>
+            <th>报餐类型</th>
+        </tr>
+        </thead>
+        <tbody>
+        <foreach name="data" item="vo">
+            <tr>
+                <td>{$vo.order_no}</td>
+                <td>{$vo.customer}</td>
+                <td>{$vo.class_name}</td>
+                <td>{$vo.school}</td>
+                <td>{$vo.canteen}</td>
+                <td>
+                    <if condition="$vo['cancel_time'] eq null">
+                        未进行
+                        <else />
+                        报餐中
+                    </if>
+                </td>
+                <td>{$vo.order_time}</td>
+                <td>{$vo.type}</td>
+            </tr>
+        </foreach>
+        </tbody>
+
+    </table>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>
