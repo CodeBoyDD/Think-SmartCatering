@@ -59,7 +59,7 @@ class CustomerModel extends Model
             ->alias('customer')
             ->rightJoin(['yfc_a_canteen'=>'canteen'],'customer.can_no = canteen.can_no')
             ->leftJoin(['yfc_a_class'=>'class'],'customer.class_no = class.class_no');
-        //->field('canteen.canteen_id,count(student.canteen_id) AS canteen_total,canteen_name,canteen_status')
+            //->field('canteen.canteen_id,count(student.canteen_id) AS canteen_total,canteen_name,canteen_status')
         return $data;
     }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace api\customer;
+namespace api\customer\controller;
 
 use app\canteen\model\CustomerModel;
 use cmf\controller\RestBaseController;
@@ -29,10 +29,37 @@ class CustomerController extends RestBaseController
         $customer->save();
 
         if ($customer->save()){
-            return $this->success("返回成功",$data);
+            return $this->success("返回成功");
         }else{
             return $this->error("失败");
         }
     }
 
+    /**
+     * 学生权限下
+     * 用户班级绑定
+     * @param cus_no
+     */
+
+    /**
+     * 学生权限下
+     * 用户输入学生姓名
+     * @param customer
+     */
+    public function inputStuName(Request $request)
+    {
+        /*向数据库中插入用户信息*/
+        $customer = new CustomerModel();
+
+        //自动生成用户编号
+        $customer->cus_no   = 'cus'.date('ymd',time());
+        $customer->customer = $request->param('customer');
+        $customer->save();
+
+        if ($customer->save()){
+            return $this->success("返回成功");
+        }else{
+            return $this->error("失败");
+        }
+    }
 }

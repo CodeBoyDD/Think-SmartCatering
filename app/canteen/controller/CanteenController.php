@@ -29,7 +29,7 @@ class CanteenController extends AdminBaseController
         /*根据分页数+$key+1实现递增序号*/
         $pagenum = input('page');
         if($pagenum  <= 1) {$pagenum = 1;}
-        $pagenum = ((int)$pagenum -1)*10;//当前页码减1乘以10
+        $pagenum = ((int)$pagenum - 1)*10;//当前页码减1乘以10
 
         /*渲染模板*/
         $this->assign('sum',$sum);
@@ -45,7 +45,7 @@ class CanteenController extends AdminBaseController
     {
         $canteen = new CanteenModel();
         $school  = SchoolModel::select();
-        $this->assign("school",$school);
+        $this->assign('school',$school);
 
         if (request()->isPost())
         {
