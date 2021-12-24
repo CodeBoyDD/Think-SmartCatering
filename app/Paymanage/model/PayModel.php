@@ -59,7 +59,7 @@ class PayModel extends Model
         $data = $this->common()
             ->field('school_name,cl.class,cus.customer,p.pay_no,can.canteen,p.pay_time,sum(ty.fee) as sum')
             ->where(['p.pay_status'=>$status])
-            ->where('or.order_time','<','p.pay_time')
+            ->where('or.order_time','<','p.pay_time char(20)')
             ->select()->toArray();
         $tool = new CommonModel();
         return $tool->machiningData($data,'school_name','class');

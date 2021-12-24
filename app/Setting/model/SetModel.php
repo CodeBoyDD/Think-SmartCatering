@@ -12,6 +12,7 @@ class SetModel extends Model
 {
     protected $name = 'a_setting';
 
+
     public function canteenDetail(){
         $data = Db::table('yfc_a_setting s,yfc_a_type t,yfc_a_canteen c,yfc_a_school sc')
             ->field('s.job_status,s.start_time,s.over_time,
@@ -86,8 +87,6 @@ class SetModel extends Model
             ->field('s.*,t.type,c.canteen')
             ->where('t.can_no = c.can_no')
             ->where('s.type_no = t.type_no')
-            ->where(['c.school_no'=>$school_no,
-                     'c.can_no'=>$can_no])
             ->select()->toArray();
     }
     //费用

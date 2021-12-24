@@ -2,52 +2,49 @@
 </head>
 <body>
 <div class="wrap js-check-wrap">
+
     <ul class="nav nav-tabs">
         <li class="active"><a href="{:url('set/index')}">餐类列表</a></li>
         <li><a href="{:url('set/list2')}">用户列表</a></li>
     </ul>
+
+    </br>
     <table class="table table-hover table-bordered">
         <thead>
-        <tr>
-            <th class="text-center">所属学校</th>
-            <th class="text-center">所属食堂</th>
-            <th class="text-center">报餐类型</th>
-            <th class="text-center">开始时间</th>
-            <th class="text-center">结束时间</th>
-            <th class="text-center">状态</th>
-            <th class="text-center">费用</th>
-        </tr>
+            <tr>
+                <th >所属学校</th>
+                <th >所属食堂</th>
+                <th >报餐类型</th>
+                <th >开始时间</th>
+                <th >结束时间</th>
+                <th >状态</th>
+                <th >费用</th>
+            </tr>
         </thead>
         <tbody>
-        <foreach name="data" item="vo1">
-            <foreach name="vo1" item="vo2">
-                <foreach name="vo2" item="vo">
-            <tr>
-                <td class="text-center"><span class="label label-danger">{$vo.school_name}</span></td>
-                <td class="text-center"><span class="label label-warning">{$vo.canteen}</span></td>
-                <td class="text-center"><span class="label label-success">{$vo.type}</span></td>
-                <td class="text-center">{$vo.start_time}</td>
-                <td class="text-center">{$vo.over_time}</td>
-                <td class="text-center">
-                    <if condition="$vo['job_status'] eq 1">
-                    <span class="label label-primary">供应中</span>
-                    <else />
-                    <span class="label label-default">敬请期待</span>
-                    </if>
-                </td>
-                <td class="text-center">{$vo.fee}</td>
-            </tr>
+            <foreach name="data" item="vo1">
+                <foreach name="vo1" item="vo2">
+                    <foreach name="vo2" item="vo">
+                <tr>
+                    <td>{$vo.school_name}</td>
+                    <td><span class="label label-warning">{$vo.canteen}</span></td>
+                    <td><span class="label label-success">{$vo.type}</span></td>
+                    <td>{$vo.start_time}</td>
+                    <td>{$vo.over_time}</td>
+                    <td>
+                        <if condition="$vo['job_status'] eq 1">
+                        <span class="label label-primary">供应中</span>
+                        <else />
+                        <span class="label label-default">敬请期待</span>
+                        </if>
+                    </td>
+                    <td>{$vo.fee}</td>
+                </tr>
+                    </foreach>
                 </foreach>
             </foreach>
-        </foreach>
-
         </tbody>
-
-
-
     </table>
-
-
 </div>
 <script src="__STATIC__/js/admin.js"></script>
 </body>
