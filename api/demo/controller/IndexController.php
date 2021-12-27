@@ -15,8 +15,6 @@ use cmf\controller\RestBaseController;
  * Class IndexController
  * @package api\demo\controller
  */
-
-
 class IndexController extends RestBaseController
 {
     public function index()

@@ -18,7 +18,6 @@ class CanteenController extends RestBaseController
     {
         $canteen = new CustomerModel();
         $data = $canteen->canteenTotal()->select();
-        //dump($data);
 
         if ($data != null){
             return $this->success("返回成功",$data);
